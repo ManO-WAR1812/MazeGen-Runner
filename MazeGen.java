@@ -5,6 +5,7 @@ public class MazeGen{
 	
 	private String [][] maze;
 	private int length, width;
+	private String space, wall;
 	
 	/**
 	 * Empty Constructor
