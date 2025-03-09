@@ -8,7 +8,7 @@ public class MazeGen{
 	private static final int START_POS = 0;
 	private static final int END_POS = 0;
 	private static final String WALL = "#";
-    private static final String PATH = "O";
+	private static final String PATH = " ";
 	
 	/**
 	 * Empty Constructor
@@ -31,7 +31,8 @@ public class MazeGen{
 				maze[i][j] = WALL;
 			}
 		}
-		//Add algo here
+		
+		
 	}
 	
 	public void printMaze(){//Used for testing
