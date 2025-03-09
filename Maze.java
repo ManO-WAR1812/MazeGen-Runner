@@ -4,7 +4,14 @@ import java.io.*;
 public class Maze{
 	
 	public static void main(String[] args){
-		Scanner scanner = new Scanner(System.in);
+		MazeGen test1 = new MazeGen(10, 10);
+		
+		test1.mazeCreation();
+		test1.printMaze();
+		
+		
+		
+		/*Scanner scanner = new Scanner(System.in);
 		String input;
 		System.out.println("Enter commands (type 'exit' to quit):");
 		
@@ -19,6 +26,7 @@ public class Maze{
 		
 		System.out.println("Exit Program...");
 		scanner.close();
+		*/
 	}
 	
 	public void mazeGeneration(){
