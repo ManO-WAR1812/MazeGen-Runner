@@ -6,8 +6,8 @@ public class Maze{
 	public static void main(String[] args){
 		MazeGen test1 = new MazeGen(10, 10);
 		
-		test1.mazeCreation();
-		test1.printMaze();
+		test1.mazeCreation();//Uses recursive backtracking.
+		test1.printMaze();//Have the code produce a file.
 		
 		
 		
