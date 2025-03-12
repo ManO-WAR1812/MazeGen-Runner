@@ -1,39 +1,21 @@
 import java.util.*;
-import java.io.*;
 
-public class Maze{
-	
-	public static void main(String[] args){
-		MazeGen test1 = new MazeGen(10, 10);
-		
-		test1.mazeCreation();//Uses recursive backtracking.
-		test1.printMaze();//Have the code produce a file.
-		
-		
-		
-		/*Scanner scanner = new Scanner(System.in);
-		String input;
-		System.out.println("Enter commands (type 'exit' to quit):");
-		
-		while(true){
-			System.out.print("> ");
-			input = scanner.nextLine();
-			
-			if(input.equalsIgnoreCase("exit")) break;
-			
-			//Add mazeGeneration() here
-		}
-		
-		System.out.println("Exit Program...");
-		scanner.close();
-		*/
-	}
-	
-	public void mazeGeneration(){
-		
-	}
-	
-	public void mazeRunning(){
-		
+public class Maze {
+	public static void main(String[] args) {
+		MazeGen generator = new MazeGen(21, 21);
+		generator.mazeCreation();
+		generator.printMaze();
+
+		// Get the generated maze and its start/end positions
+		String[][] generatedMaze = generator.getMaze();
+		int startX = generator.getStartRow();
+		int startY = generator.getStartCol();
+		int endX = generator.getEndRow();
+		int endY = generator.getEndCol();
+
+		// Solve the maze
+		MazeRun runner = new MazeRun(generatedMaze, startX, startY, endX, endY);
+		runner.runWallFollower();
 	}
 }
+

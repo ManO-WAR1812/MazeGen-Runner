@@ -1,19 +1,19 @@
 import java.util.*;
 
 public class MazeGen {
-	
 	private String[][] maze;
 	private int width, height;
 	private int startRow, startCol, endRow, endCol;
 	private static final String WALL = "#";
 	private static final String PATH = " ";
-	
+
 	public MazeGen(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.maze = new String[height][width]; 
+		mazeCreation(); // Automatically generate the maze
 	}
-	
+
 	public void mazeCreation() {
 		// Initialize all walls
 		for (int i = 0; i < height; i++) {
@@ -63,50 +63,44 @@ public class MazeGen {
 		// Select a random edge for the start position
 		int startEdge = rand.nextInt(4); // 0 = top, 1 = bottom, 2 = left, 3 = right
 		switch (startEdge) {
-			case 0: // Top edge
-				startRow = 0;
-				startCol = rand.nextInt(width);
-				break;
-			case 1: // Bottom edge
-				startRow = height - 1;
-				startCol = rand.nextInt(width);
-				break;
-			case 2: // Left edge
-				startRow = rand.nextInt(height);
-				startCol = 0;
-				break;
-			case 3: // Right edge
-				startRow = rand.nextInt(height);
-				startCol = width - 1;
-				break;
+			case 0: startRow = 0; startCol = rand.nextInt(width); break;
+			case 1: startRow = height - 1; startCol = rand.nextInt(width); break;
+			case 2: startRow = rand.nextInt(height); startCol = 0; break;
+			case 3: startRow = rand.nextInt(height); startCol = width - 1; break;
 		}
 
 		// Select a different edge for the end position
 		int endEdge;
-		do {
-			endEdge = rand.nextInt(4);
-		} while (endEdge == startEdge);
+		do { endEdge = rand.nextInt(4); } while (endEdge == startEdge);
 
 		switch (endEdge) {
-			case 0: // Top edge
-				endRow = 0;
-				endCol = rand.nextInt(width);
-				break;
-			case 1: // Bottom edge
-				endRow = height - 1;
-				endCol = rand.nextInt(width);
-				break;
-			case 2: // Left edge
-				endRow = rand.nextInt(height);
-				endCol = 0;
-				break;
-			case 3: // Right edge
-				endRow = rand.nextInt(height);
-				endCol = width - 1;
-				break;
+			case 0: endRow = 0; endCol = rand.nextInt(width); break;
+			case 1: endRow = height - 1; endCol = rand.nextInt(width); break;
+			case 2: endRow = rand.nextInt(height); endCol = 0; break;
+			case 3: endRow = rand.nextInt(height); endCol = width - 1; break;
 		}
 	}
 	
+	public String[][] getMaze() {
+		return maze;
+	}
+
+	public int getStartRow() {
+		return startRow;
+	}
+
+	public int getStartCol() {
+		return startCol;
+	}
+
+	public int getEndRow() {
+		return endRow;
+	}
+
+	public int getEndCol() {
+		return endCol;
+	}
+
 	private int[][] getUnvisitedNeighbors(int row, int col) {
 		List<int[]> neighbors = new ArrayList<>();
 
@@ -125,19 +119,17 @@ public class MazeGen {
 
 		return neighbors.toArray(new int[neighbors.size()][]);
 	}
-	
+
 	public void printMaze() {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				if (i == startRow && j == startCol) {
-					System.out.print("S ");
-				} else if (i == endRow && j == endCol) {
-					System.out.print("E ");
-				} else {
-					System.out.print(maze[i][j] + " ");
-				}
+				if (i == startRow && j == startCol) System.out.print("S ");
+				else if (i == endRow && j == endCol) System.out.print("E ");
+				else System.out.print(maze[i][j] + " ");
 			}
 			System.out.println();
 		}
 	}
 }
+
+
