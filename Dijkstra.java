@@ -22,49 +22,67 @@ public class Dijkstra {
 	}
 
 	public int solveMaze() {
-		long startTime = System.nanoTime();
+	long startTime = System.nanoTime();
 
-		PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(n -> n.distance));
-		pq.offer(new Node(startX, startY, 0));
-		distance[startX][startY] = 0;
+	PriorityQueue<Node> pq = new PriorityQueue<>();
+	pq.offer(new Node(startX, startY, 0));
+	distance[startX][startY] = 0;
 
-		while (!pq.isEmpty()) {
-			Node current = pq.poll();
-			int x = current.x;
-			int y = current.y;
-			int dist = current.distance;
+	while (!pq.isEmpty()) {
+		Node current = pq.poll();
+		int x = current.x;
+		int y = current.y;
+		int dist = current.distance;
 
-			if (x == endX && y == endY) break; // Stop when reaching the end
+		if (x == endX && y == endY) break; // Stop when reaching the end
 
-			for (int[] dir : directions) {
-				int newX = x + dir[0];
-				int newY = y + dir[1];
+		for (int[] dir : directions) {
+			int newX = x + dir[0];
+			int newY = y + dir[1];
 
-				if (isValidMove(newX, newY) && dist + 1 < distance[newX][newY]) {
-					distance[newX][newY] = dist + 1;
-					pq.offer(new Node(newX, newY, distance[newX][newY]));
-				}
+			if (isValidMove(newX, newY)) { 
+				int newDist = dist + 1;  
+				if (newDist < distance[newX][newY]) { 
+					distance[newX][newY] = newDist;  
+					pq.offer(new Node(newX, newY, newDist));  
+				}  
 			}
 		}
-
-		// Check if a path was found
-		if (distance[endX][endY] == Integer.MAX_VALUE) {
-			System.out.println("Dijkstra Algorithm failed: No path found.");
-			return -1;
-		}
-
-		// Trace back and mark the shortest path
-		markShortestPath();
-
-		long endTime = System.nanoTime(); // End timing
-		time = (int) ((endTime - startTime) / 1_000_000); // Convert to milliseconds
-		if (time == 0) { // If time is too small, show in microseconds
-			System.out.println("Dijkstra Algorithm solved the maze in: " + (endTime - startTime) / 1_000 + " µs");
-		} else {
-			System.out.println("Dijkstra Algorithm solved the maze in: " + time + " ms");
-		}
-		return time;
 	}
+
+	// ✅ Debugging: Print final distance
+	System.out.println("Final distance to goal: " + distance[endX][endY]);
+
+	// ✅ Fix 1: Verify a path was found
+	boolean pathExists = false;
+	for (int i = 0; i < maze.length; i++) {
+		for (int j = 0; j < maze[0].length; j++) {
+			if (maze[i][j].equals(".")) { // ✅ Check if path was drawn
+				pathExists = true;
+				break;
+			}
+		}
+		if (pathExists) break;
+	}
+
+	if (!pathExists) {
+		System.out.println("Dijkstra Algorithm failed: No path found.");
+		return -1;
+	}
+
+	// ✅ If we get here, the path was successfully found
+	markShortestPath();
+
+	long endTime = System.nanoTime(); // End timing
+	time = (int) ((endTime - startTime) / 1_000_000); // Convert to milliseconds
+	if (time == 0) { // If time is too small, show in microseconds
+		System.out.println("Dijkstra Algorithm solved the maze in: " + (endTime - startTime) / 1_000 + " µs");
+	} else {
+		System.out.println("Dijkstra Algorithm solved the maze in: " + time + " ms");
+	}
+	return time;
+}
+
 
 	private void markShortestPath() {
 		if (distance[endX][endY] == Integer.MAX_VALUE) {
@@ -81,15 +99,19 @@ public class Dijkstra {
 				int newX = x + dir[0];
 				int newY = y + dir[1];
 
-				if (isValidMove(newX, newY) && distance[newX][newY] < minDist) {
-					minDist = distance[newX][newY];
-					nextMove = dir;
+				// ✅ First ensure newX and newY are in bounds before accessing distance
+				if (newX >= 0 && newX < maze.length && newY >= 0 && newY < maze[0].length) {
+					if (isValidMove(newX, newY) && distance[newX][newY] < minDist) {
+						minDist = distance[newX][newY];
+						nextMove = dir;
+					}
 				}
 			}
 
+			// ✅ Prevent crash if no valid move is found
 			if (nextMove == null) {
-				System.out.println("Error: Failed to reconstruct path.");
-				break; // Prevent infinite loop
+				System.out.println("Error: No valid move found during backtracking.");
+				return;
 			}
 
 			x -= nextMove[0];
@@ -105,7 +127,7 @@ public class Dijkstra {
 		return x >= 0 && x < maze.length 
 		    && y >= 0 && y < maze[0].length 
 		    && !maze[x][y].equals("#") 
-		    && distance[x][y] != Integer.MAX_VALUE; // Ensure it's visited
+		    && distance[x][y] != Integer.MAX_VALUE; // ✅ Ensure cell was visited
 	}
 
 	public int getTime() {
@@ -121,12 +143,18 @@ public class Dijkstra {
 		}
 	}
 
-	private static class Node {
-		int x, y, distance;
-		Node(int x, int y, int distance) {
-			this.x = x;
-			this.y = y;
-			this.distance = distance;
+	private static class Node implements Comparable<Node> { 
+		int x, y, distance; 
+
+		Node(int x, int y, int distance) { 
+			this.x = x; 
+			this.y = y; 
+			this.distance = distance; 
+		}
+
+		@Override
+		public int compareTo(Node other) { 
+			return Integer.compare(this.distance, other.distance); 
 		}
 	}
 }

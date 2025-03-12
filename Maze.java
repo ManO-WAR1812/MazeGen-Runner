@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Maze {
 	public static void main(String[] args) {
-		MazeGen generator = new MazeGen(21, 21);
+		MazeGen generator = new MazeGen(30, 30);
 		generator.mazeCreation();
 		generator.printMaze();
 

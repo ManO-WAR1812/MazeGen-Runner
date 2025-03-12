@@ -18,20 +18,20 @@ public class MazeRun {
 		WallFollower solver = new WallFollower(maze, startX, startY, endX, endY);
 		
 		this.time = solver.solveMaze(); // Solve first, then store the correct time
-		//printSolvedMaze(); // Print the maze with the path marked
+		printSolvedMaze(); // Print the maze with the path marked
 	}
 	
 	public void runDeadEnd(){
 		DeadEnd solver = new DeadEnd(maze, startX, startY, endX, endY);
 		
 		this.time = solver.solveMaze();
-		//printSolvedMaze();
+		printSolvedMaze();
 	}
 	
 	public void runDijkstra(){
 		Dijkstra solver = new Dijkstra(maze, startX, startY, endX, endY);
 		this.time = solver.solveMaze();
-		//printSolvedMaze();
+		printSolvedMaze();
 	}
 	
 	public void printSolvedMaze() {
