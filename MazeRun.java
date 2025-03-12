@@ -20,8 +20,14 @@ public class MazeRun {
 		this.time = solver.solveMaze(); // Solve first, then store the correct time
 		//printSolvedMaze(); // Print the maze with the path marked
 	}
-
-
+	
+	public void runDeadEnd(){
+		DeadEnd solver = new DeadEnd(maze, startX, startY, endX, endY);
+		
+		this.time = solver.solveMaze();
+		//printSolvedMaze();
+	}
+	
 	public void printSolvedMaze() {
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[0].length; j++) {

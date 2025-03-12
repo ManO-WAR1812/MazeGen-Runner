@@ -14,8 +14,11 @@ public class Maze {
 		int endY = generator.getEndCol();
 
 		// Solve the maze
-		MazeRun runner = new MazeRun(generatedMaze, startX, startY, endX, endY);
-		runner.runWallFollower();
+		MazeRun wfRunner = new MazeRun(generatedMaze, startX, startY, endX, endY);
+		wfRunner.runWallFollower();
+		
+		MazeRun deRunner = new MazeRun(generatedMaze, startX, startY, endX, endY);
+		deRunner.runDeadEnd();
 	}
 }
 
