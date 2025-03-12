@@ -66,7 +66,7 @@ public class Dijkstra {
 	}
 
 	if (!pathExists) {
-		System.out.println("Dijkstra Algorithm failed: No path found.");
+		//System.out.println("Dijkstra Algorithm failed: No path found.");
 		return -1;
 	}
 
@@ -86,7 +86,7 @@ public class Dijkstra {
 
 	private void markShortestPath() {
 		if (distance[endX][endY] == Integer.MAX_VALUE) {
-			System.out.println("No valid path found!");
+			//System.out.println("No valid path found!");
 			return;
 		}
 

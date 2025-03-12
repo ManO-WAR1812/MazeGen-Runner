@@ -2,9 +2,9 @@ import java.util.*;
 
 public class Maze {
 	public static void main(String[] args) {
-		MazeGen generator = new MazeGen(30, 30);
+		MazeGen generator = new MazeGen(10000, 10000);
 		generator.mazeCreation();
-		generator.printMaze();
+		//generator.printMaze();
 
 		// Get the generated maze and its start/end positions
 		String[][] generatedMaze = generator.getMaze();
