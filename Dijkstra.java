@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Dijkstra{
+public class Dijkstra {
 	
 	private String[][] maze;
 	private int startX, startY, endX, endY;
@@ -47,6 +47,12 @@ public class Dijkstra{
 			}
 		}
 
+		// Check if a path was found
+		if (distance[endX][endY] == Integer.MAX_VALUE) {
+			System.out.println("Dijkstra Algorithm failed: No path found.");
+			return -1;
+		}
+
 		// Trace back and mark the shortest path
 		markShortestPath();
 
@@ -61,18 +67,29 @@ public class Dijkstra{
 	}
 
 	private void markShortestPath() {
+		if (distance[endX][endY] == Integer.MAX_VALUE) {
+			System.out.println("No valid path found!");
+			return;
+		}
+
 		int x = endX, y = endY;
 		while (x != startX || y != startY) {
 			int minDist = distance[x][y];
-			int[] nextMove = {0, 0};
+			int[] nextMove = null;
 
 			for (int[] dir : directions) {
 				int newX = x + dir[0];
 				int newY = y + dir[1];
+
 				if (isValidMove(newX, newY) && distance[newX][newY] < minDist) {
 					minDist = distance[newX][newY];
 					nextMove = dir;
 				}
+			}
+
+			if (nextMove == null) {
+				System.out.println("Error: Failed to reconstruct path.");
+				break; // Prevent infinite loop
 			}
 
 			x -= nextMove[0];
@@ -85,7 +102,10 @@ public class Dijkstra{
 	}
 
 	private boolean isValidMove(int x, int y) {
-		return x >= 0 && x < maze.length && y >= 0 && y < maze[0].length && !maze[x][y].equals("#");
+		return x >= 0 && x < maze.length 
+		    && y >= 0 && y < maze[0].length 
+		    && !maze[x][y].equals("#") 
+		    && distance[x][y] != Integer.MAX_VALUE; // Ensure it's visited
 	}
 
 	public int getTime() {

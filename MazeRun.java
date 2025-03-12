@@ -31,6 +31,7 @@ public class MazeRun {
 	public void runDijkstra(){
 		Dijkstra solver = new Dijkstra(maze, startX, startY, endX, endY);
 		this.time = solver.solveMaze();
+		//printSolvedMaze();
 	}
 	
 	public void printSolvedMaze() {
