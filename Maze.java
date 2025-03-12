@@ -19,6 +19,9 @@ public class Maze {
 		
 		MazeRun deRunner = new MazeRun(generatedMaze, startX, startY, endX, endY);
 		deRunner.runDeadEnd();
+		
+		MazeRun djkRunner = new MazeRun(generatedMaze, startX, startY, endX, endY);
+		djkRunner.runDijkstra();
 	}
 }
 

@@ -28,6 +28,11 @@ public class MazeRun {
 		//printSolvedMaze();
 	}
 	
+	public void runDijkstra(){
+		Dijkstra solver = new Dijkstra(maze, startX, startY, endX, endY);
+		this.time = solver.solveMaze();
+	}
+	
 	public void printSolvedMaze() {
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[0].length; j++) {
