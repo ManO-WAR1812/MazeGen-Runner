@@ -2,17 +2,25 @@ import java.util.*;
 
 public class Maze {
 	public static void main(String[] args) {
-		MazeGen generator = new MazeGen(10000, 10000);
+		MazeGen generator = new MazeGen(15000, 15000);
 		generator.mazeCreation();
-		//generator.printMaze();
-
-		// Get the generated maze and its start/end positions
+		
+		// Get the generated maze and its dimensions
 		String[][] generatedMaze = generator.getMaze();
+		int rows = generatedMaze.length;
+		int cols = generatedMaze[0].length;
+
+		// Check if the maze is small enough to print
+		if (rows <= 100 && cols <= 100) {
+			generator.printMaze();
+		} else {
+			System.out.println("Maze is too large to display.");
+		}
+		// Get the start and end positions
 		int startX = generator.getStartRow();
 		int startY = generator.getStartCol();
 		int endX = generator.getEndRow();
 		int endY = generator.getEndCol();
-
 		// Solve the maze
 		MazeRun wfRunner = new MazeRun(generatedMaze, startX, startY, endX, endY);
 		wfRunner.runWallFollower();
@@ -24,4 +32,3 @@ public class Maze {
 		djkRunner.runDijkstra();
 	}
 }
-

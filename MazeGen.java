@@ -119,7 +119,7 @@ public class MazeGen {
 
 		return neighbors.toArray(new int[neighbors.size()][]);
 	}
-/*
+
 	public void printMaze() {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
@@ -130,7 +130,7 @@ public class MazeGen {
 			System.out.println();
 		}
 	}
-	*/
+	
 }
 
 
