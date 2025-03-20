@@ -15,7 +15,7 @@ public class Maze {
 	 * For best results, make the parameters odd.
 	 */
 	public static void main(String[] args) {
-		MazeGen generator = new MazeGen(21, 21);
+		MazeGen generator = new MazeGen(51, 51);
 		generator.mazeCreation();
 		
 		// Get the generated maze and its dimensions
