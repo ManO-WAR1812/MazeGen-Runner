@@ -1,5 +1,0 @@
-Classes:
-	- Maze: Used to make and run mazes.
-	- Maze-Gen: Houses algo to run maze generation.
-	- Maze-Run: Houses algos that run maze runners and collects the time it finishes.
-
